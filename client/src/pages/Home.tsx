@@ -230,7 +230,7 @@ export default function Home() {
             </div>
             
             {/* OwnerRez Booking Widget */}
-            <BookingWidget showPlaceholder={true} />
+            <BookingWidget />
 
             {/* House Rules */}
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
