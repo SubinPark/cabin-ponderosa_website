@@ -1,4 +1,6 @@
 import { BookingWidget } from "@/components/BookingWidget";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
+import { LocationMap } from "@/components/LocationMap";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
@@ -29,31 +31,32 @@ export default function Home() {
         <div className="container flex items-center justify-between py-6">
           <h1 className="text-2xl font-light tracking-wide">cabin ponderosa</h1>
           <div className="flex items-center gap-8">
-            <a href="#about" className="text-sm font-light hover:text-muted-foreground transition-colors">about</a>
+            <a href="#about" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">about</a>
+            <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
+            <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
             <a href="#booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</a>
-            <a href="tel:+1234567890" className="text-sm font-light hover:text-muted-foreground transition-colors">contact</a>
           </div>
         </div>
       </nav>
 
       {/* Hero Section - Full Width Image */}
-      <section className="pt-24 pb-0">
-        <div className="w-full h-screen relative overflow-hidden">
+      <section className="pt-20 md:pt-24 pb-0">
+        <div className="w-full h-screen md:h-screen relative overflow-hidden">
           <img
             src={images.hero}
             alt="Cabin Ponderosa exterior"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center">
-            <h2 className="text-6xl md:text-7xl lg:text-8xl font-light text-white text-center max-w-4xl px-4 mb-8">
+          <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center px-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white text-center max-w-4xl mb-4 md:mb-8">
               forest view
             </h2>
-            <p className="text-lg md:text-xl text-white/90 text-center max-w-2xl px-4 font-light">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 text-center max-w-2xl font-light">
               a modern retreat nestled in ponderosa pines
             </p>
           </div>
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-6 h-6 text-white" />
+          <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white" />
           </div>
         </div>
       </section>
@@ -110,7 +113,7 @@ export default function Home() {
         <img
           src={images.deck}
           alt="Cabin deck with forest view"
-          className="w-full h-96 md:h-screen object-cover"
+          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
         />
       </section>
 
@@ -154,7 +157,7 @@ export default function Home() {
         <img
           src={images.outdoor}
           alt="Outdoor seating area"
-          className="w-full h-96 md:h-screen object-cover"
+          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
         />
       </section>
 
@@ -191,8 +194,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section id="testimonials" className="section-spacing bg-white">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-16 leading-tight text-center">
+            guest experiences
+          </h3>
+          <TestimonialsCarousel />
+        </div>
+      </section>
+
+      {/* Location & Map Section */}
+      <section id="location" className="section-spacing bg-secondary/5">
+        <div className="container max-w-6xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            explore the area
+          </h3>
+          <LocationMap />
+        </div>
+      </section>
+
       {/* House Rules */}
-      <section className="section-spacing bg-secondary/5">
+      <section className="section-spacing bg-white">
         <div className="container max-w-4xl mx-auto">
           <h3 className="text-3xl md:text-4xl font-light mb-12 leading-tight">
             important details
