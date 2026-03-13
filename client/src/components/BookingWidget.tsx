@@ -14,6 +14,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export function BookingWidget() {
   useEffect(() => {
+    // Check if OwnerRez widget script is already loaded
+    const existingScript = document.querySelector('script[src="https://app.ownerrez.com/widget.js"]');
+    if (existingScript) {
+      return; // Script already loaded, don't load again
+    }
+
     // Dynamically load the OwnerRez widget script
     const script = document.createElement('script');
     script.src = 'https://app.ownerrez.com/widget.js';
@@ -22,9 +28,10 @@ export function BookingWidget() {
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup: remove script if component unmounts
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
+      // Cleanup: safely remove script if it's still in the DOM
+      // Use isConnected to check if element is still in the document
+      if (script.isConnected) {
+        script.remove();
       }
     };
   }, []);
