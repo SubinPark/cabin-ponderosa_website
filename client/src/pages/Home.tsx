@@ -1,7 +1,7 @@
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Send } from "lucide-react";
+import { ChevronDown, Send, Calendar, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
@@ -188,13 +188,15 @@ export default function Home() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/booking">
-              <Button className="px-8 py-4 text-lg bg-foreground text-background hover:bg-foreground/90">
-                view availability
+              <Button className="px-4 py-2 text-sm bg-foreground text-background hover:bg-foreground/90 flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <span>view availability</span>
               </Button>
             </Link>
             <Link href="#contact">
-              <Button className="px-8 py-4 text-lg bg-foreground text-background hover:bg-foreground/90">
-                ask a question
+              <Button className="px-4 py-2 text-sm bg-foreground text-background hover:bg-foreground/90 flex items-center gap-2">
+                <MessageCircle className="w-4 h-4" />
+                <span>ask a question</span>
               </Button>
             </Link>
           </div>
