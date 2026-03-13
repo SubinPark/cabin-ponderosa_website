@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapPin } from 'lucide-react';
 
 interface Attraction {
@@ -58,83 +58,96 @@ export function LocationMap() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
+    // Check if Google Maps is available
+    if (typeof google === 'undefined' || !google.maps) {
+      setMapLoaded(false);
+      return;
+    }
+
     if (!mapRef.current) return;
 
-    // Initialize map
-    const map = new google.maps.Map(mapRef.current, {
-      zoom: 11,
-      center: { lat: 38.2456, lng: -120.4789 },
-      styles: [
-        {
-          elementType: 'geometry',
-          stylers: [{ color: '#f5f5f5' }],
-        },
-        {
-          elementType: 'labels.text.stroke',
-          stylers: [{ color: '#ffffff' }],
-        },
-        {
-          elementType: 'labels.text.fill',
-          stylers: [{ color: '#616161' }],
-        },
-        {
-          featureType: 'water',
-          elementType: 'geometry',
-          stylers: [{ color: '#e0e0e0' }],
-        },
-      ],
-    });
-
-    mapInstanceRef.current = map;
-
-    // Clear previous markers
-    markersRef.current.forEach(marker => marker.setMap(null));
-    markersRef.current = [];
-
-    // Add markers for each attraction
-    attractions.forEach((attraction, index) => {
-      const markerColor = attraction.type === 'activity' ? '#2c3e50' : '#7f8c8d';
-      const isMainLocation = attraction.name === 'Cabin Ponderosa';
-
-      const marker = new google.maps.Marker({
-        position: { lat: attraction.lat, lng: attraction.lng },
-        map: map,
-        title: attraction.name,
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: isMainLocation ? 12 : 8,
-          fillColor: isMainLocation ? '#2c3e50' : markerColor,
-          fillOpacity: 1,
-          strokeColor: '#ffffff',
-          strokeWeight: 2,
-        },
+    try {
+      // Initialize map
+      const map = new google.maps.Map(mapRef.current, {
+        zoom: 11,
+        center: { lat: 38.2456, lng: -120.4789 },
+        styles: [
+          {
+            elementType: 'geometry',
+            stylers: [{ color: '#f5f5f5' }],
+          },
+          {
+            elementType: 'labels.text.stroke',
+            stylers: [{ color: '#ffffff' }],
+          },
+          {
+            elementType: 'labels.text.fill',
+            stylers: [{ color: '#616161' }],
+          },
+          {
+            featureType: 'water',
+            elementType: 'geometry',
+            stylers: [{ color: '#e0e0e0' }],
+          },
+        ],
       });
 
-      // Add info window
-      const infoWindow = new google.maps.InfoWindow({
-        content: `
-          <div style="padding: 8px; font-family: 'Lato', sans-serif; font-size: 14px;">
-            <p style="margin: 0 0 4px 0; font-weight: 500;">${attraction.name}</p>
-            <p style="margin: 0; color: #666; font-size: 12px;">${attraction.distance}</p>
-          </div>
-        `,
-      });
+      mapInstanceRef.current = map;
+      setMapLoaded(true);
 
-      marker.addListener('click', () => {
-        // Close all other info windows
-        markersRef.current.forEach(m => {
-          if (m !== marker) {
-            (m as any).infoWindow?.close();
-          }
+      // Clear previous markers
+      markersRef.current.forEach(marker => marker.setMap(null));
+      markersRef.current = [];
+
+      // Add markers for each attraction
+      attractions.forEach((attraction) => {
+        const markerColor = attraction.type === 'activity' ? '#2c3e50' : '#7f8c8d';
+        const isMainLocation = attraction.name === 'Cabin Ponderosa';
+
+        const marker = new google.maps.Marker({
+          position: { lat: attraction.lat, lng: attraction.lng },
+          map: map,
+          title: attraction.name,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: isMainLocation ? 12 : 8,
+            fillColor: isMainLocation ? '#2c3e50' : markerColor,
+            fillOpacity: 1,
+            strokeColor: '#ffffff',
+            strokeWeight: 2,
+          },
         });
-        infoWindow.open(map, marker);
-      });
 
-      (marker as any).infoWindow = infoWindow;
-      markersRef.current.push(marker);
-    });
+        // Add info window
+        const infoWindow = new google.maps.InfoWindow({
+          content: `
+            <div style="padding: 8px; font-family: 'Lato', sans-serif; font-size: 14px;">
+              <p style="margin: 0 0 4px 0; font-weight: 500;">${attraction.name}</p>
+              <p style="margin: 0; color: #666; font-size: 12px;">${attraction.distance}</p>
+            </div>
+          `,
+        });
+
+        marker.addListener('click', () => {
+          // Close all other info windows
+          markersRef.current.forEach(m => {
+            if (m !== marker) {
+              (m as any).infoWindow?.close();
+            }
+          });
+          infoWindow.open(map, marker);
+        });
+
+        (marker as any).infoWindow = infoWindow;
+        markersRef.current.push(marker);
+      });
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      setMapLoaded(false);
+    }
 
     return () => {
       markersRef.current.forEach(marker => marker.setMap(null));
@@ -146,8 +159,14 @@ export function LocationMap() {
       {/* Map Container */}
       <div
         ref={mapRef}
-        className="w-full h-64 sm:h-80 md:h-96 lg:h-screen rounded-none border border-border"
-      />
+        className="w-full h-64 sm:h-80 md:h-96 lg:h-screen rounded-none border border-border bg-secondary/5 flex items-center justify-center"
+      >
+        {!mapLoaded && (
+          <div className="text-center">
+            <p className="text-muted-foreground font-light">Loading map...</p>
+          </div>
+        )}
+      </div>
 
       {/* Legend */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
