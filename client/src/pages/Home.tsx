@@ -193,15 +193,15 @@ export default function Home() {
           </h3>
 
           {/* CTA Buttons */}
-          <div className="w-full max-w-md flex flex-col gap-3">
+          <div className="w-full max-w-4xl flex flex-col gap-3">
             <Link href="/booking" className="w-full">
-              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2">
+              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>view availability</span>
               </Button>
             </Link>
             <Link href="#contact" className="w-full">
-              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2">
+              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <MessageCircle className="w-4 h-4" />
                 <span>ask a question</span>
               </Button>
@@ -430,12 +430,18 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-border py-12">
         <div className="container max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
             <div>
               <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">location</h4>
               <p className="text-muted-foreground font-light">
                 Arnold, California
               </p>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">also on airbnb</h4>
+              <a href="https://airbnb.com/h/cabinponderosa" target="_blank" rel="noopener noreferrer" className="text-muted-foreground font-light hover:text-foreground transition-colors">
+                View on Airbnb
+              </a>
             </div>
           </div>
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground font-light">
