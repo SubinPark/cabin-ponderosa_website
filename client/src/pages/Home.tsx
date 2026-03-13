@@ -1,5 +1,6 @@
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { FAQAccordion } from "@/components/FAQAccordion";
+import { PhotoCarousel } from "@/components/PhotoCarousel";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Send, Calendar, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
@@ -182,40 +183,21 @@ export default function Home() {
         />
       </section>
 
-      {/* Full Width Image Section - Bedroom */}
-      <section className="py-0">
-        <img
-          src={images.bedroom}
-          alt="Cabin bedroom"
-          className="w-full h-auto object-contain"
-        />
-      </section>
-
-      {/* Full Width Image Section - Kitchen */}
-      <section className="py-0">
-        <img
-          src={images.kitchen}
-          alt="Cabin kitchen"
-          className="w-full h-auto object-contain"
-        />
-      </section>
-
-      {/* Full Width Image Section - Bathroom */}
-      <section className="py-0">
-        <img
-          src={images.bathroom}
-          alt="Cabin bathroom"
-          className="w-full h-auto object-contain"
-        />
-      </section>
-
-      {/* Full Width Image Section - Living Room */}
-      <section className="py-0">
-        <img
-          src={images.living}
-          alt="Cabin living room"
-          className="w-full h-auto object-contain"
-        />
+      {/* Photo Gallery Carousel */}
+      <section className="section-spacing bg-secondary/5">
+        <div className="container max-w-6xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            explore the cabin
+          </h3>
+          <PhotoCarousel
+            photos={[
+              { url: images.bedroom, alt: "Cabin bedroom" },
+              { url: images.kitchen, alt: "Cabin kitchen" },
+              { url: images.bathroom, alt: "Cabin bathroom" },
+              { url: images.living, alt: "Cabin living room" },
+            ]}
+          />
+        </div>
       </section>
 
       {/* CTA Section */}
