@@ -48,28 +48,7 @@ export function BookingWidget() {
         data-widgetId="03056d705e794bb199dd93c1dfeb3b1e"
         style={{ minHeight: '600px' }}
       />
-      
-      <div className="mt-8 p-6 bg-secondary/5 rounded-lg border border-border">
-        <h3 className="text-lg font-semibold text-foreground mb-3">Booking Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="font-semibold text-foreground mb-2">Payment Schedule</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• <strong>50%</strong> due at booking (to secure your dates)</li>
-              <li>• <strong>50%</strong> due 30 days before arrival</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-foreground mb-2">What's Included</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Entire cabin for your exclusive use</li>
-              <li>• All amenities and utilities</li>
-              <li>• Linens and towels</li>
-              <li>• Confirmation email with check-in details</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }
