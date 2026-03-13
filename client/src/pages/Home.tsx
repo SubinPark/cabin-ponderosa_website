@@ -1,6 +1,7 @@
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
+import { BookingWidget } from "@/components/BookingWidget";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Send, Calendar, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
@@ -194,19 +195,29 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="w-full max-w-4xl flex flex-col gap-3">
-            <Link href="/booking" className="w-full">
+            <a href="#booking" className="w-full">
               <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>view availability</span>
               </Button>
-            </Link>
-            <Link href="#contact" className="w-full">
+            </a>
+            <a href="#contact" className="w-full">
               <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <MessageCircle className="w-4 h-4" />
                 <span>ask a question</span>
               </Button>
-            </Link>
+            </a>
           </div>
+        </div>
+      </section>
+
+      {/* Booking Widget Section */}
+      <section id="booking" className="section-spacing bg-white">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            book your stay
+          </h3>
+          <BookingWidget />
         </div>
       </section>
 
@@ -313,7 +324,7 @@ export default function Home() {
 
       {/* Contact Form Section */}
       <section id="contact" className="section-spacing bg-white">
-        <div className="container max-w-2xl mx-auto">
+        <div className="container max-w-4xl mx-auto">
           <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
             get in touch
           </h3>
