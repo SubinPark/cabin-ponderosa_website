@@ -174,15 +174,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Full Width Image Section */}
-      <section className="py-0">
-        <img
-          src={images.deck}
-          alt="Cabin deck with forest view"
-          className="w-full h-auto object-contain"
-        />
-      </section>
-
       {/* Photo Gallery Carousel */}
       <section className="section-spacing bg-secondary/5">
         <div className="container max-w-6xl mx-auto">
@@ -191,6 +182,7 @@ export default function Home() {
           </h3>
           <PhotoCarousel
             photos={[
+              { url: images.deck, alt: "Cabin deck with forest view" },
               { url: images.bedroom, alt: "Cabin bedroom" },
               { url: images.kitchen, alt: "Cabin kitchen" },
               { url: images.bathroom, alt: "Cabin bathroom" },

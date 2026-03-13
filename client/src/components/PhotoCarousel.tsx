@@ -49,12 +49,12 @@ export function PhotoCarousel({ photos }: PhotoCarouselProps) {
         {photos.map((photo, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 h-80 md:h-96 rounded-lg overflow-hidden bg-secondary/10"
+            className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 h-80 md:h-96 rounded-lg overflow-hidden bg-secondary/10 flex items-center justify-center"
           >
             <img
               src={photo.url}
               alt={photo.alt}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
             />
           </div>
         ))}
