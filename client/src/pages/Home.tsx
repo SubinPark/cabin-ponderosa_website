@@ -1,5 +1,4 @@
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
-import { LocationMap } from "@/components/LocationMap";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Send } from "lucide-react";
@@ -222,13 +221,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Location & Map Section */}
+      {/* Location & Attractions Section */}
       <section id="location" className="section-spacing bg-secondary/5">
-        <div className="container max-w-6xl mx-auto">
+        <div className="container max-w-4xl mx-auto">
           <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
             explore the area
           </h3>
-          <LocationMap />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Nearby Attractions */}
+            <div>
+              <h4 className="text-lg font-medium mb-6">nearby attractions</h4>
+              <ul className="space-y-4 text-muted-foreground font-light">
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Blue Lake Springs</p>
+                    <p className="text-sm">Beautiful alpine lake, 15 min drive</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Big Trees State Park</p>
+                    <p className="text-sm">Ancient sequoia groves, 20 min drive</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Calaveras Big Trees Trail</p>
+                    <p className="text-sm">Scenic hiking, 25 min drive</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Murphys Historic Town</p>
+                    <p className="text-sm">Gold rush era town with wineries, 20 min drive</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Outdoor Activities */}
+            <div>
+              <h4 className="text-lg font-medium mb-6">outdoor activities</h4>
+              <ul className="space-y-4 text-muted-foreground font-light">
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Hiking & Trails</p>
+                    <p className="text-sm">Extensive network of forest trails nearby</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Fishing</p>
+                    <p className="text-sm">Excellent trout fishing in local streams</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Winter Sports</p>
+                    <p className="text-sm">Skiing & snowboarding nearby in winter</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-3">•</span>
+                  <div>
+                    <p className="font-medium text-foreground">Wildlife Viewing</p>
+                    <p className="text-sm">Deer, bears, and diverse bird species</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
