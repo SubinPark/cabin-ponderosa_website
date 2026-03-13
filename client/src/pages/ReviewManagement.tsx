@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Upload } from "lucide-react";
 
 export default function ReviewManagement() {
   const [formData, setFormData] = useState({
@@ -11,7 +11,9 @@ export default function ReviewManagement() {
     review: "",
   });
 
+  const [importText, setImportText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
 
   // Fetch testimonials
   const { data: testimonials = [] } = trpc.testimonials.list.useQuery();
@@ -70,10 +72,92 @@ export default function ReviewManagement() {
     }
   };
 
+  const handleImport = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!importText.trim()) {
+      toast.error("Please paste reviews");
+      return;
+    }
+
+    setIsImporting(true);
+    try {
+      // Parse the import text - expect format: "Name | Rating (1-5) | Review text"
+      const lines = importText.trim().split("\n").filter((line) => line.trim());
+
+      let successCount = 0;
+      for (const line of lines) {
+        const parts = line.split("|").map((p) => p.trim());
+        if (parts.length < 3) {
+          toast.error(`Invalid format: "${line}". Use: Name | Rating | Review`);
+          continue;
+        }
+
+        const [name, ratingStr, review] = parts;
+        const rating = parseInt(ratingStr);
+
+        if (!name || !review || isNaN(rating) || rating < 1 || rating > 5) {
+          toast.error(`Invalid data: "${line}"`);
+          continue;
+        }
+
+        try {
+          await addTestimonial.mutateAsync({
+            guestName: name,
+            rating,
+            review,
+          });
+          successCount++;
+        } catch (error) {
+          console.error("Failed to import review:", error);
+        }
+      }
+
+      if (successCount > 0) {
+        setImportText("");
+        toast.success(`${successCount} review(s) imported successfully!`);
+      }
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Manage Reviews</h1>
+
+        {/* Auto-Import Section */}
+        <div className="bg-card border border-border rounded-lg p-8 mb-12">
+          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+            <Upload className="w-5 h-5" />
+            Quick Import from Airbnb
+          </h2>
+          <p className="text-muted-foreground mb-4 text-sm">
+            Paste reviews in this format (one per line):
+          </p>
+          <p className="text-muted-foreground mb-6 text-sm font-mono bg-secondary/5 p-3 rounded">
+            Name | Rating (1-5) | Review text
+          </p>
+
+          <form onSubmit={handleImport} className="space-y-4">
+            <textarea
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              placeholder={`Sarah M. | 5 | Amazing cabin with beautiful views!\nJohn D. | 5 | Perfect getaway spot`}
+              rows={6}
+              className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+            />
+            <Button
+              type="submit"
+              disabled={isImporting || addTestimonial.isPending}
+              className="w-full"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              {isImporting ? "Importing..." : "Import Reviews"}
+            </Button>
+          </form>
+        </div>
 
         {/* Add Review Form */}
         <div className="bg-card border border-border rounded-lg p-8 mb-12">
@@ -146,7 +230,9 @@ export default function ReviewManagement() {
 
         {/* Reviews List */}
         <div>
-          <h2 className="text-2xl font-semibold mb-6">Current Reviews ({testimonials.length})</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            Current Reviews ({testimonials.length})
+          </h2>
 
           {testimonials.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">

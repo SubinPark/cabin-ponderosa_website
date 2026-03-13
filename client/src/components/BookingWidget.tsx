@@ -25,14 +25,16 @@ export function BookingWidget() {
     script.src = 'https://app.ownerrez.com/widget.js';
     script.async = true;
     script.defer = true;
-    document.body.appendChild(script);
+    
+    try {
+      document.body.appendChild(script);
+    } catch (error) {
+      console.error('Failed to append OwnerRez widget script:', error);
+    }
 
+    // Don't remove the script on unmount - OwnerRez widgets persist across component lifecycle
     return () => {
-      // Cleanup: safely remove script if it's still in the DOM
-      // Use isConnected to check if element is still in the document
-      if (script.isConnected) {
-        script.remove();
-      }
+      // No cleanup needed for OwnerRez script
     };
   }, []);
 

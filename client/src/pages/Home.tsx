@@ -186,14 +186,14 @@ export default function Home() {
           </h3>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md">
-            <Link href="/booking" className="flex-1">
-              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/booking">
+              <Button className="px-8 py-4 text-lg bg-foreground text-background hover:bg-foreground/90">
                 view availability
               </Button>
             </Link>
-            <Link href="#contact" className="flex-1">
-              <Button variant="outline" className="w-full py-3">
+            <Link href="#contact">
+              <Button className="px-8 py-4 text-lg bg-foreground text-background hover:bg-foreground/90">
                 ask a question
               </Button>
             </Link>

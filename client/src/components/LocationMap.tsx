@@ -1,156 +1,221 @@
-import { useEffect, useRef, useState } from 'react';
-import { MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { MapPin } from "lucide-react";
 
 interface Attraction {
   name: string;
+  description: string;
   lat: number;
   lng: number;
-  type: 'activity' | 'dining' | 'attraction';
-  distance: string;
 }
 
 const attractions: Attraction[] = [
   {
-    name: "Cabin Ponderosa",
-    lat: 38.2456,
-    lng: -120.4789,
-    type: 'activity',
-    distance: "You are here"
-  },
-  {
     name: "Blue Lake Springs",
-    lat: 38.2523,
-    lng: -120.4856,
-    type: 'activity',
-    distance: "4 mins"
+    description: "Beautiful alpine lake, 15 min drive",
+    lat: 38.2,
+    lng: -120.45,
   },
   {
-    name: "Calaveras Big Trees State Park",
-    lat: 38.2789,
-    lng: -120.4523,
-    type: 'attraction',
-    distance: "8 mins"
+    name: "Big Trees State Park",
+    description: "Ancient sequoia groves, 20 min drive",
+    lat: 38.25,
+    lng: -120.5,
   },
   {
-    name: "Lake Alpine",
-    lat: 38.3456,
-    lng: -120.3789,
-    type: 'activity',
-    distance: "35 mins"
+    name: "Calaveras Big Trees Trail",
+    description: "Scenic hiking, 25 min drive",
+    lat: 38.27,
+    lng: -120.48,
   },
   {
-    name: "Bear Valley Ski Resort",
-    lat: 38.4123,
-    lng: -120.2456,
-    type: 'activity',
-    distance: "40 mins"
-  },
-  {
-    name: "Moaning Caverns",
-    lat: 38.1234,
-    lng: -120.5123,
-    type: 'attraction',
-    distance: "25 mins"
+    name: "Murphys Historic Town",
+    description: "Gold rush era town with wineries, 20 min drive",
+    lat: 38.18,
+    lng: -120.42,
   },
 ];
 
-export function LocationMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const markersRef = useRef<google.maps.Marker[]>([]);
+const CABIN_LAT = 38.22;
+const CABIN_LNG = -120.46;
 
-  useEffect(() => {
-    // Check if Google Maps is available
-    if (typeof google === 'undefined' || !google.maps) {
-      setMapLoaded(false);
+let googleMapsScriptPromise: Promise<void> | null = null;
+
+function loadGoogleMapsScript(): Promise<void> {
+  if (googleMapsScriptPromise) {
+    return googleMapsScriptPromise;
+  }
+
+  googleMapsScriptPromise = new Promise((resolve, reject) => {
+    // Check if script is already loaded
+    if ((window as any).google?.maps) {
+      resolve();
       return;
     }
 
-    if (!mapRef.current) return;
+    const script = document.createElement("script");
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-    try {
-      // Initialize map
-      const map = new google.maps.Map(mapRef.current, {
-        zoom: 11,
-        center: { lat: 38.2456, lng: -120.4789 },
-        styles: [
-          {
-            elementType: 'geometry',
-            stylers: [{ color: '#f5f5f5' }],
-          },
-          {
-            elementType: 'labels.text.stroke',
-            stylers: [{ color: '#ffffff' }],
-          },
-          {
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#616161' }],
-          },
-          {
-            featureType: 'water',
-            elementType: 'geometry',
-            stylers: [{ color: '#e0e0e0' }],
-          },
-        ],
-      });
+    if (!apiKey) {
+      reject(new Error("Google Maps API key not configured"));
+      return;
+    }
 
-      setMapLoaded(true);
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+    script.async = true;
+    script.defer = true;
 
-      // Add markers for each attraction
-      attractions.forEach((attraction) => {
-        const markerColor = attraction.type === 'activity' ? '#2c3e50' : '#7f8c8d';
-        const isMainLocation = attraction.name === 'Cabin Ponderosa';
+    script.onload = () => {
+      resolve();
+    };
 
-        const marker = new google.maps.Marker({
-          position: { lat: attraction.lat, lng: attraction.lng },
-          map: map,
-          title: attraction.name,
+    script.onerror = () => {
+      googleMapsScriptPromise = null;
+      reject(new Error("Failed to load Google Maps script"));
+    };
+
+    document.head.appendChild(script);
+  });
+
+  return googleMapsScriptPromise;
+}
+
+export function LocationMap() {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const initializedRef = useRef(false);
+
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
+    const initializeMap = async () => {
+      try {
+        // Load Google Maps script
+        await loadGoogleMapsScript();
+
+        if (!mapRef.current) return;
+
+        const google = (window as any).google;
+        if (!google?.maps) {
+          throw new Error("Google Maps not available");
+        }
+
+        // Create map
+        const map = new google.maps.Map(mapRef.current, {
+          zoom: 11,
+          center: { lat: CABIN_LAT, lng: CABIN_LNG },
+          mapTypeControl: true,
+          streetViewControl: false,
+          fullscreenControl: true,
+          styles: [
+            {
+              featureType: "all",
+              elementType: "labels.text.fill",
+              stylers: [{ color: "#666666" }],
+            },
+          ],
+        });
+
+        mapInstanceRef.current = map;
+
+        // Add cabin marker
+        const cabinMarker = new google.maps.Marker({
+          position: { lat: CABIN_LAT, lng: CABIN_LNG },
+          map,
+          title: "Cabin Ponderosa",
           icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: isMainLocation ? 12 : 8,
-            fillColor: isMainLocation ? '#2c3e50' : markerColor,
+            scale: 10,
+            fillColor: "#000000",
             fillOpacity: 1,
-            strokeColor: '#ffffff',
+            strokeColor: "#ffffff",
             strokeWeight: 2,
           },
         });
 
-        // Add info window
-        const infoWindow = new google.maps.InfoWindow({
-          content: `
-            <div style="padding: 8px; font-family: 'Lato', sans-serif; font-size: 14px;">
-              <p style="margin: 0 0 4px 0; font-weight: 500;">${attraction.name}</p>
-              <p style="margin: 0; color: #666; font-size: 12px;">${attraction.distance}</p>
-            </div>
-          `,
+        const cabinInfoWindow = new google.maps.InfoWindow({
+          content: "<div><strong>Cabin Ponderosa</strong><br/>Your mountain retreat</div>",
         });
 
-        marker.addListener('click', () => {
+        cabinMarker.addListener("click", () => {
           // Close all other info windows
-          markersRef.current.forEach(m => {
-            if (m !== marker) {
-              (m as any).infoWindow?.close();
-            }
+          markersRef.current.forEach((m) => {
+            if (m.infoWindow) m.infoWindow.close();
           });
-          infoWindow.open(map, marker);
+          cabinInfoWindow.open(map, cabinMarker);
         });
 
-        (marker as any).infoWindow = infoWindow;
-        markersRef.current.push(marker);
-      });
+        // Add attraction markers
+        attractions.forEach((attraction) => {
+          const marker = new google.maps.Marker({
+            position: { lat: attraction.lat, lng: attraction.lng },
+            map,
+            title: attraction.name,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 7,
+              fillColor: "#8b6f47",
+              fillOpacity: 0.8,
+              strokeColor: "#ffffff",
+              strokeWeight: 1,
+            },
+          });
 
-      return () => {
-        // Cleanup: remove all markers
-        markersRef.current.forEach(marker => {
-          marker.setMap(null);
+          const infoWindow = new google.maps.InfoWindow({
+            content: `<div><strong>${attraction.name}</strong><br/>${attraction.description}</div>`,
+          });
+
+          marker.addListener("click", () => {
+            // Close all other info windows
+            markersRef.current.forEach((m) => {
+              if (m.infoWindow) m.infoWindow.close();
+            });
+            cabinInfoWindow.close();
+            infoWindow.open(map, marker);
+          });
+
+          (marker as any).infoWindow = infoWindow;
+          markersRef.current.push(marker);
         });
-        markersRef.current = [];
-      };
-    } catch (error) {
-      console.error('Error initializing map:', error);
-      setMapLoaded(false);
-    }
+
+        setMapLoaded(true);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Failed to load map";
+        console.error("Map initialization error:", err);
+        setError(message);
+        setMapLoaded(false);
+      }
+    };
+
+    initializeMap();
+
+    return () => {
+      // Cleanup on unmount
+      try {
+        if (mapInstanceRef.current) {
+          markersRef.current.forEach((marker) => {
+            marker.setMap(null);
+          });
+          markersRef.current = [];
+          mapInstanceRef.current = null;
+        }
+      } catch (err) {
+        console.error("Error during cleanup:", err);
+      }
+    };
   }, []);
+
+  if (error) {
+    return (
+      <div className="w-full h-64 sm:h-80 md:h-96 lg:h-screen rounded-none border border-border bg-secondary/5 flex items-center justify-center flex-col gap-4">
+        <MapPin className="w-8 h-8 text-muted-foreground" />
+        <p className="text-muted-foreground text-center">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-6 md:space-y-8">
@@ -160,48 +225,26 @@ export function LocationMap() {
         className="w-full h-64 sm:h-80 md:h-96 lg:h-screen rounded-none border border-border bg-secondary/5 flex items-center justify-center"
       >
         {!mapLoaded && (
-          <div className="text-center">
-            <p className="text-muted-foreground font-light">Loading map...</p>
+          <div className="flex flex-col items-center gap-2">
+            <MapPin className="w-8 h-8 text-muted-foreground animate-pulse" />
+            <p className="text-muted-foreground">Loading map...</p>
           </div>
         )}
       </div>
 
       {/* Legend */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <div>
-          <h4 className="text-base sm:text-lg font-medium mb-4">nearby attractions</h4>
-          <div className="space-y-3">
-            {attractions.slice(1).map((attraction) => (
-              <div key={attraction.name} className="flex items-start gap-3">
-                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mt-1 flex-shrink-0 text-muted-foreground" />
-                <div>
-                  <p className="font-medium text-xs sm:text-sm">{attraction.name}</p>
-                  <p className="text-xs text-muted-foreground font-light">{attraction.distance}</p>
-                </div>
-              </div>
-            ))}
+      {mapLoaded && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-4 h-4 rounded-full bg-black border-2 border-white"></div>
+            <span className="text-muted-foreground">Cabin Ponderosa</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-3 rounded-full bg-[#8b6f47] border border-white"></div>
+            <span className="text-muted-foreground">Nearby Attractions</span>
           </div>
         </div>
-
-        {/* Quick Info */}
-        <div className="bg-secondary/5 p-4 sm:p-6 rounded-none border border-border">
-          <h4 className="text-base sm:text-lg font-medium mb-4">location details</h4>
-          <div className="space-y-4 text-xs sm:text-sm font-light text-muted-foreground">
-            <div>
-              <p className="font-medium text-foreground mb-1">address</p>
-              <p>Arnold, CA 95223<br />Sierra Nevada, California</p>
-            </div>
-            <div>
-              <p className="font-medium text-foreground mb-1">elevation</p>
-              <p>4,200 ft above sea level</p>
-            </div>
-            <div>
-              <p className="font-medium text-foreground mb-1">nearest town</p>
-              <p>Arnold (5 mins)</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
