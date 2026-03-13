@@ -86,7 +86,7 @@ export default function Home() {
             <a href="#about" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">about</a>
             <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
             <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
-            <Link href="/booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</Link>
+            <a href="#booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</a>
             <Link href="#contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</Link>
           </div>
         </div>
