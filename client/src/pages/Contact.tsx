@@ -3,12 +3,13 @@ import { ChevronLeft, Send } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 /**
  * Contact Page
  * 
  * Simple contact form for guest inquiries.
- * Sends messages to info@cabinponderosa.com
+ * Sends messages via tRPC backend to owner notifications.
  */
 
 export default function Contact() {
@@ -19,7 +20,23 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitInquiry = trpc.contact.submitInquiry.useMutation({
+    onSuccess: () => {
+      toast.success("Message sent! We'll get back to you soon.");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    },
+    onError: (error) => {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again.");
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -31,51 +48,15 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    try {
-      // Validate form
-      if (!formData.name || !formData.email || !formData.message) {
-        toast.error("Please fill in all required fields");
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Send email via FormSubmit (free service that sends to your email)
-      const response = await fetch("https://formspree.io/f/xyzabc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-          _subject: `New Inquiry from ${formData.name}`,
-          _replyto: formData.email,
-        }),
-      });
-
-      if (response.ok) {
-        toast.success("Message sent! We'll get back to you soon.");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        });
-      } else {
-        toast.error("Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      toast.error("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    // Validate form
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all required fields");
+      return;
     }
+
+    // Submit via tRPC
+    await submitInquiry.mutateAsync(formData);
   };
 
   return (
@@ -199,10 +180,10 @@ export default function Contact() {
             {/* Submit Button */}
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={submitInquiry.isPending}
               className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? (
+              {submitInquiry.isPending ? (
                 <>
                   <span>sending...</span>
                 </>

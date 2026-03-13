@@ -1,5 +1,6 @@
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { LocationMap } from "@/components/LocationMap";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
@@ -132,33 +133,12 @@ export default function Home() {
         />
       </section>
 
-      {/* Pricing & CTA Section */}
+      {/* CTA Section */}
       <section className="section-spacing bg-white">
         <div className="container max-w-4xl mx-auto">
-          <div className="mb-16">
-            <h3 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
-              ready to escape?
-            </h3>
-            <p className="text-lg text-muted-foreground font-light max-w-2xl">
-              Check availability, view pricing, and secure your mountain retreat. Our booking system is powered by OwnerRez for a seamless experience.
-            </p>
-          </div>
-
-          {/* Pricing Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="border-t border-border pt-6">
-              <p className="text-4xl font-light mb-2">$152–600</p>
-              <p className="text-sm text-muted-foreground font-light">per night</p>
-            </div>
-            <div className="border-t border-border pt-6">
-              <p className="text-2xl font-light mb-2">4–8 guests</p>
-              <p className="text-sm text-muted-foreground font-light">sleeps comfortably</p>
-            </div>
-            <div className="border-t border-border pt-6">
-              <p className="text-2xl font-light mb-2">50% + 50%</p>
-              <p className="text-sm text-muted-foreground font-light">payment split</p>
-            </div>
-          </div>
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            ready to escape?
+          </h3>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 max-w-md">
@@ -173,6 +153,16 @@ export default function Home() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="section-spacing bg-secondary/5">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            frequently asked
+          </h3>
+          <FAQAccordion />
         </div>
       </section>
 
