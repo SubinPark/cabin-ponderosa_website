@@ -25,6 +25,10 @@ export default function Home() {
     interior: "https://uc.orez.io/i/25ca93160c0240318390a373564e55f6-LargeOriginal",
     deck: "https://uc.orez.io/i/fe79496aa1604ee9a3ea9707b9df29e5-LargeOriginal",
     outdoor: "https://uc.orez.io/i/f8ad910f956843229412b39bb44633bc-LargeOriginal",
+    bedroom: "https://uc.orez.io/i/b7c26eb7c27848bdbfbb47010b88083d-LargeOriginal",
+    kitchen: "https://uc.orez.io/f/9382362e1e3142bbb0d44bf1d2b9d676",
+    bathroom: "https://uc.orez.io/f/f7fbe5045b9d430b8341fbf149b21515",
+    living: "https://uc.orez.io/i/9bed0a33d3f646d8bee2e6fea3e0a7a7-LargeOriginal",
   };
 
   const [contactForm, setContactForm] = useState({
@@ -174,6 +178,42 @@ export default function Home() {
         <img
           src={images.deck}
           alt="Cabin deck with forest view"
+          className="w-full h-auto object-contain"
+        />
+      </section>
+
+      {/* Full Width Image Section - Bedroom */}
+      <section className="py-0">
+        <img
+          src={images.bedroom}
+          alt="Cabin bedroom"
+          className="w-full h-auto object-contain"
+        />
+      </section>
+
+      {/* Full Width Image Section - Kitchen */}
+      <section className="py-0">
+        <img
+          src={images.kitchen}
+          alt="Cabin kitchen"
+          className="w-full h-auto object-contain"
+        />
+      </section>
+
+      {/* Full Width Image Section - Bathroom */}
+      <section className="py-0">
+        <img
+          src={images.bathroom}
+          alt="Cabin bathroom"
+          className="w-full h-auto object-contain"
+        />
+      </section>
+
+      {/* Full Width Image Section - Living Room */}
+      <section className="py-0">
+        <img
+          src={images.living}
+          alt="Cabin living room"
           className="w-full h-auto object-contain"
         />
       </section>
