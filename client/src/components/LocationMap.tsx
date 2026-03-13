@@ -56,9 +56,8 @@ const attractions: Attraction[] = [
 
 export function LocationMap() {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const markersRef = useRef<google.maps.Marker[]>([]);
 
   useEffect(() => {
     // Check if Google Maps is available
@@ -95,12 +94,7 @@ export function LocationMap() {
         ],
       });
 
-      mapInstanceRef.current = map;
       setMapLoaded(true);
-
-      // Clear previous markers
-      markersRef.current.forEach(marker => marker.setMap(null));
-      markersRef.current = [];
 
       // Add markers for each attraction
       attractions.forEach((attraction) => {
@@ -144,14 +138,18 @@ export function LocationMap() {
         (marker as any).infoWindow = infoWindow;
         markersRef.current.push(marker);
       });
+
+      return () => {
+        // Cleanup: remove all markers
+        markersRef.current.forEach(marker => {
+          marker.setMap(null);
+        });
+        markersRef.current = [];
+      };
     } catch (error) {
       console.error('Error initializing map:', error);
       setMapLoaded(false);
     }
-
-    return () => {
-      markersRef.current.forEach(marker => marker.setMap(null));
-    };
   }, []);
 
   return (
