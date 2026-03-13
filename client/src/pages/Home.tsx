@@ -147,21 +147,23 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-medium mb-6">comfort & convenience</h4>
               <ul className="space-y-3 text-muted-foreground font-light">
-                <li>• Fully equipped kitchen with modern appliances</li>
-                <li>• Comfortable bedrooms with premium linens</li>
-                <li>• Hot tub for stargazing and relaxation</li>
-                <li>• Wood-burning fireplace</li>
                 <li>• High-speed WiFi and smart TV</li>
+                <li>• Fully equipped kitchen</li>
+                <li>• Washer & dryer</li>
+                <li>• Air conditioning</li>
+                <li>• Heating</li>
+                <li>• Wood-burning stove</li>
+                <li>• EV charger</li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg font-medium mb-6">outdoor & nature</h4>
               <ul className="space-y-3 text-muted-foreground font-light">
-                <li>• Large deck with forest views</li>
-                <li>• Fire pit for evening gatherings</li>
-                <li>• Direct access to hiking trails</li>
-                <li>• Ample parking</li>
-                <li>• Peaceful, secluded setting</li>
+                <li>• Private forest-view deck</li>
+                <li>• Outdoor fire pit</li>
+                <li>• BBQ grill</li>
+                <li>• Outdoor dining area</li>
+                <li>• Lounge seating & sun loungers</li>
               </ul>
             </div>
           </div>
@@ -186,30 +188,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-spacing bg-white">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
-            ready to escape?
-          </h3>
-
-          {/* CTA Buttons */}
-          <div className="w-full max-w-4xl flex flex-col gap-3">
-            <a href="#booking" className="w-full">
-              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                <Calendar className="w-4 h-4" />
-                <span>view availability</span>
-              </Button>
-            </a>
-            <a href="#contact" className="w-full">
-              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                <MessageCircle className="w-4 h-4" />
-                <span>ask a question</span>
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* Booking Widget Section */}
       <section id="booking" className="section-spacing bg-white">
