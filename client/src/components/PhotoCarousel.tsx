@@ -28,12 +28,16 @@ export function PhotoCarousel({ photos }: PhotoCarouselProps) {
   const scroll = (direction: "left" | "right") => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = 400;
-      container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-      setTimeout(checkScroll, 300);
+      // Calculate the width of one photo item (including gap)
+      const firstChild = container.firstElementChild as HTMLElement;
+      if (firstChild) {
+        const itemWidth = firstChild.offsetWidth + 16; // 16px is the gap
+        container.scrollBy({
+          left: direction === "left" ? -itemWidth : itemWidth,
+          behavior: "smooth",
+        });
+        setTimeout(checkScroll, 300);
+      }
     }
   };
 
