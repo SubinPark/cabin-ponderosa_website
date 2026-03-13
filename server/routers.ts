@@ -3,7 +3,8 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
-import { getTestimonials } from "./db";
+import { getTestimonials, addTestimonial, deleteTestimonial } from "./db";
+import type { TRPCError } from "@trpc/server";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -67,6 +68,44 @@ export const appRouter = router({
     list: publicProcedure.query(async () => {
       return await getTestimonials();
     }),
+    add: publicProcedure
+      .input((data: unknown) => {
+        const obj = data as Record<string, unknown>;
+        return {
+          guestName: String(obj.guestName || ''),
+          rating: Number(obj.rating || 5),
+          review: String(obj.review || ''),
+        };
+      })
+      .mutation(async ({ input }) => {
+        if (!input.guestName || !input.review) {
+          throw new Error('Guest name and review are required');
+        }
+
+        if (input.rating < 1 || input.rating > 5) {
+          throw new Error('Rating must be between 1 and 5');
+        }
+
+        return await addTestimonial({
+          guestName: input.guestName,
+          rating: input.rating,
+          review: input.review,
+        });
+      }),
+    delete: publicProcedure
+      .input((data: unknown) => {
+        const obj = data as Record<string, unknown>;
+        return {
+          id: Number(obj.id || 0),
+        };
+      })
+      .mutation(async ({ input }) => {
+        if (!input.id) {
+          throw new Error('Testimonial ID is required');
+        }
+
+        return await deleteTestimonial(input.id);
+      }),
   }),
 });
 

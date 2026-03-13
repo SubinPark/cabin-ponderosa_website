@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BookingWidget } from "@/components/BookingWidget";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "wouter";
@@ -10,8 +11,12 @@ import { Link } from "wouter";
  */
 
 export default function Booking() {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <div className="min-h-screen bg-white text-foreground">
+    <div className="min-h-screen bg-white text-foreground" id="booking-page">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
         <div className="container flex items-center justify-between py-6">
@@ -25,10 +30,10 @@ export default function Booking() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-24 pb-12">
+      <main className="pt-24 pb-12" id="booking-content">
         <div className="container max-w-4xl mx-auto">
           {/* Header */}
-          <div className="mb-12 md:mb-16">
+          <div className="mb-12 md:mb-16" id="booking-header">
             <h2 className="text-4xl md:text-5xl font-light mb-4 leading-tight">
               reserve your retreat
             </h2>

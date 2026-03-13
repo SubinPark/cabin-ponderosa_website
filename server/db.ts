@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, testimonials } from "../drizzle/schema";
+import { InsertUser, users, testimonials, InsertTestimonial } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -103,5 +103,35 @@ export async function getTestimonials() {
   } catch (error) {
     console.error("[Database] Failed to get testimonials:", error);
     return [];
+  }
+}
+
+export async function addTestimonial(data: InsertTestimonial) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    const result = await db.insert(testimonials).values(data);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to add testimonial:", error);
+    throw error;
+  }
+}
+
+export async function deleteTestimonial(id: number) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.delete(testimonials).where(eq(testimonials.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete testimonial:", error);
+    throw error;
   }
 }
