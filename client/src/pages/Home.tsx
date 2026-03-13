@@ -1,8 +1,8 @@
-import { BookingWidget } from "@/components/BookingWidget";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { LocationMap } from "@/components/LocationMap";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { Link } from "wouter";
 
 /**
  * Cabin Ponderosa Website
@@ -34,7 +34,8 @@ export default function Home() {
             <a href="#about" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">about</a>
             <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
             <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
-            <a href="#booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</a>
+            <Link href="/booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</Link>
+            <Link href="/contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</Link>
           </div>
         </div>
       </nav>
@@ -64,46 +65,60 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="section-spacing bg-white">
         <div className="container max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <h3 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
+            about the cabin
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
-                designed for serenity
-              </h3>
-              <p className="text-lg text-muted-foreground font-light mb-6 leading-relaxed">
-                Recently updated A-frame cabin in Arnold, CA, surrounded by towering Ponderosa pines of the Sierra Nevada. High peaked ceilings and expansive glass windows frame stunning mountain views.
+              <p className="text-muted-foreground font-light leading-relaxed mb-6">
+                Nestled among towering ponderosa pines in the Sierra Nevada foothills, Cabin Ponderosa is a modern A-frame retreat designed for those seeking peace and natural beauty. The cabin features expansive floor-to-ceiling windows that frame stunning forest views and mountain vistas.
               </p>
-              <p className="text-lg text-muted-foreground font-light mb-8 leading-relaxed">
-                Three sleeping areas, two full bathrooms, spacious outdoor decks with fire pit. Your private sanctuary for reconnecting with nature.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl font-light">•</span>
-                  <div>
-                    <p className="font-medium">4 mins</p>
-                    <p className="text-sm text-muted-foreground">Blue Lake Springs amenities</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl font-light">•</span>
-                  <div>
-                    <p className="font-medium">8 mins</p>
-                    <p className="text-sm text-muted-foreground">Calaveras Big Trees State Park</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl font-light">•</span>
-                  <div>
-                    <p className="font-medium">40 mins</p>
-                    <p className="text-sm text-muted-foreground">Bear Valley Ski Resort</p>
-                  </div>
-                </div>
-              </div>
             </div>
-            <img
-              src={images.interior}
-              alt="Cabin interior"
-              className="w-full h-auto object-cover"
-            />
+            <div>
+              <p className="text-muted-foreground font-light leading-relaxed mb-6">
+                Built with thoughtful attention to comfort and sustainability, the cabin combines rustic charm with modern amenities. Whether you're seeking a romantic getaway, family adventure, or solo retreat, Cabin Ponderosa offers the perfect escape from the everyday.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full Width Image Section */}
+      <section className="py-0">
+        <img
+          src={images.interior}
+          alt="Cabin interior with forest views"
+          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
+        />
+      </section>
+
+      {/* Amenities Section */}
+      <section className="section-spacing bg-white">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            what's included
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h4 className="text-lg font-medium mb-6">comfort & convenience</h4>
+              <ul className="space-y-3 text-muted-foreground font-light">
+                <li>• Fully equipped kitchen with modern appliances</li>
+                <li>• Comfortable bedrooms with premium linens</li>
+                <li>• Hot tub for stargazing and relaxation</li>
+                <li>• Wood-burning fireplace</li>
+                <li>• High-speed WiFi and smart TV</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-medium mb-6">outdoor & nature</h4>
+              <ul className="space-y-3 text-muted-foreground font-light">
+                <li>• Large deck with forest views</li>
+                <li>• Fire pit for evening gatherings</li>
+                <li>• Direct access to hiking trails</li>
+                <li>• Ample parking</li>
+                <li>• Peaceful, secluded setting</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -117,52 +132,8 @@ export default function Home() {
         />
       </section>
 
-      {/* Amenities Section */}
+      {/* Pricing & CTA Section */}
       <section className="section-spacing bg-white">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-4xl md:text-5xl font-light mb-16 leading-tight">
-            what's included
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h4 className="text-xl font-medium mb-6">interior</h4>
-              <ul className="space-y-3 text-muted-foreground font-light">
-                <li>• Full kitchen with stainless appliances</li>
-                <li>• 55" smart TV & entertainment system</li>
-                <li>• Wood stove for cozy nights</li>
-                <li>• 2 bedrooms + loft sleeping area</li>
-                <li>• 2 full bathrooms</li>
-                <li>• Washer & dryer</li>
-                <li>• High-speed WiFi</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xl font-medium mb-6">outdoor</h4>
-              <ul className="space-y-3 text-muted-foreground font-light">
-                <li>• Spacious deck with forest views</li>
-                <li>• Gas fire pit & lounge seating</li>
-                <li>• Weber gas BBQ grill</li>
-                <li>• 8-person dining table</li>
-                <li>• Level 2 EV charger</li>
-                <li>• Ample parking</li>
-                <li>• Surrounded by nature</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Full Width Image Section */}
-      <section className="py-0">
-        <img
-          src={images.outdoor}
-          alt="Outdoor seating area"
-          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
-        />
-      </section>
-
-      {/* Pricing & Booking */}
-      <section id="booking" className="section-spacing bg-white">
         <div className="container max-w-4xl mx-auto">
           <div className="mb-16">
             <h3 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
@@ -189,8 +160,19 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Booking Widget */}
-          <BookingWidget />
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md">
+            <Link href="/booking" className="flex-1">
+              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90">
+                view availability
+              </Button>
+            </Link>
+            <Link href="/contact" className="flex-1">
+              <Button variant="outline" className="w-full py-3">
+                ask a question
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
