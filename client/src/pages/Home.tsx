@@ -119,17 +119,10 @@ export default function Home() {
           <h3 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
             about the cabin
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <p className="text-muted-foreground font-light leading-relaxed mb-6">
-                Nestled among towering ponderosa pines in the Sierra Nevada foothills, Cabin Ponderosa is a modern A-frame retreat designed for those seeking peace and natural beauty. The cabin features expansive floor-to-ceiling windows that frame stunning forest views and mountain vistas.
-              </p>
-            </div>
-            <div>
-              <p className="text-muted-foreground font-light leading-relaxed mb-6">
-                Built with thoughtful attention to comfort and sustainability, the cabin combines rustic charm with modern amenities. Whether you're seeking a romantic getaway, family adventure, or solo retreat, Cabin Ponderosa offers the perfect escape from the everyday.
-              </p>
-            </div>
+          <div>
+            <p className="text-muted-foreground font-light leading-relaxed mb-6">
+              Nestled among towering ponderosa pines in the Sierra Nevada foothills, Cabin Ponderosa is a modern A-frame retreat designed for those seeking peace and natural beauty. The cabin features expansive floor-to-ceiling windows that frame stunning forest views and mountain vistas.
+            </p>
           </div>
         </div>
       </section>
@@ -200,15 +193,15 @@ export default function Home() {
           </h3>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/booking">
-              <Button className="px-4 py-2 text-sm bg-foreground text-background hover:bg-foreground/90 flex items-center gap-2">
+          <div className="w-full max-w-md flex flex-col gap-3">
+            <Link href="/booking" className="w-full">
+              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>view availability</span>
               </Button>
             </Link>
-            <Link href="#contact">
-              <Button className="px-4 py-2 text-sm bg-foreground text-background hover:bg-foreground/90 flex items-center gap-2">
+            <Link href="#contact" className="w-full">
+              <Button className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 flex items-center justify-center gap-2">
                 <MessageCircle className="w-4 h-4" />
                 <span>ask a question</span>
               </Button>
@@ -437,25 +430,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-border py-12">
         <div className="container max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <div>
-              <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">contact</h4>
-              <a href="mailto:info@cabinponderosa.com" className="text-muted-foreground font-light hover:text-foreground transition-colors">
-                info@cabinponderosa.com
-              </a>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-12 mb-12">
             <div>
               <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">location</h4>
               <p className="text-muted-foreground font-light">
-                Arnold, CA<br />
-                Sierra Nevada
+                Arnold, California
               </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">follow</h4>
-              <a href="https://instagram.com" className="text-muted-foreground font-light hover:text-foreground transition-colors">
-                Instagram
-              </a>
             </div>
           </div>
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground font-light">
