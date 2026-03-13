@@ -122,7 +122,7 @@ export default function Home() {
           </h3>
           <div>
             <p className="text-muted-foreground font-light leading-relaxed mb-6">
-              Nestled among towering ponderosa pines in the Sierra Nevada foothills, Cabin Ponderosa is a modern A-frame retreat designed for those seeking peace and natural beauty. The cabin features expansive floor-to-ceiling windows that frame stunning forest views and mountain vistas.
+              Surrounded by Ponderosa pine trees of the Sierras, Cabin Ponderosa is a modern A-frame retreat designed for those seeking peace and comfort.
             </p>
           </div>
         </div>
