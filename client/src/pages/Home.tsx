@@ -170,7 +170,7 @@ export default function Home() {
 
       {/* Photo Gallery Carousel */}
       <section className="section-spacing bg-secondary/5">
-        <div className="container max-w-6xl mx-auto">
+        <div className="container max-w-4xl mx-auto">
           <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
             explore the cabin
           </h3>
