@@ -2,8 +2,11 @@ import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { LocationMap } from "@/components/LocationMap";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Send } from "lucide-react";
 import { Link } from "wouter";
+import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 /**
  * Cabin Ponderosa Website
@@ -25,6 +28,49 @@ export default function Home() {
     outdoor: "https://uc.orez.io/i/f8ad910f956843229412b39bb44633bc-LargeOriginal",
   };
 
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const submitInquiry = trpc.contact.submitInquiry.useMutation({
+    onSuccess: () => {
+      toast.success("Message sent! We'll get back to you soon.");
+      setContactForm({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    },
+    onError: () => {
+      toast.error("Failed to send message. Please try again.");
+    },
+  });
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setContactForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!contactForm.name || !contactForm.email || !contactForm.message) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    await submitInquiry.mutateAsync(contactForm);
+  };
+
   return (
     <div className="min-h-screen bg-white text-foreground">
       {/* Navigation */}
@@ -36,7 +82,7 @@ export default function Home() {
             <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
             <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
             <Link href="/booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</Link>
-            <Link href="/contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</Link>
+            <Link href="#contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</Link>
           </div>
         </div>
       </nav>
@@ -89,7 +135,7 @@ export default function Home() {
         <img
           src={images.interior}
           alt="Cabin interior with forest views"
-          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
+          className="w-full h-auto object-contain"
         />
       </section>
 
@@ -129,7 +175,7 @@ export default function Home() {
         <img
           src={images.deck}
           alt="Cabin deck with forest view"
-          className="w-full h-64 sm:h-80 md:h-96 lg:h-screen object-cover"
+          className="w-full h-auto object-contain"
         />
       </section>
 
@@ -147,7 +193,7 @@ export default function Home() {
                 view availability
               </Button>
             </Link>
-            <Link href="/contact" className="flex-1">
+            <Link href="#contact" className="flex-1">
               <Button variant="outline" className="w-full py-3">
                 ask a question
               </Button>
@@ -186,26 +232,119 @@ export default function Home() {
         </div>
       </section>
 
-      {/* House Rules */}
-      <section className="section-spacing bg-white">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-3xl md:text-4xl font-light mb-12 leading-tight">
-            important details
+      {/* Contact Form Section */}
+      <section id="contact" className="section-spacing bg-white">
+        <div className="container max-w-2xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            get in touch
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+          <form onSubmit={handleContactSubmit} className="space-y-6">
+            {/* Name */}
             <div>
-              <h4 className="text-lg font-medium mb-4">winter access</h4>
-              <p className="text-muted-foreground font-light leading-relaxed mb-6">
-                During snow season, 4WD/AWD vehicles and snow chains are recommended. We provide plow service for snowfall of 4+ inches. Shovels and de-icing salt available on-site.
-              </p>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                name <span className="text-destructive">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={contactForm.name}
+                onChange={handleContactChange}
+                placeholder="Your name"
+                className="w-full px-4 py-3 border border-border rounded-none bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+                required
+              />
             </div>
+
+            {/* Email */}
             <div>
-              <h4 className="text-lg font-medium mb-4">house policy</h4>
-              <p className="text-muted-foreground font-light leading-relaxed mb-6">
-                No pets due to allergies. Only confirmed guests allowed on property. 24/7 exterior security cameras for safety. Cleaning fee covers standard turnover.
-              </p>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                email <span className="text-destructive">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={contactForm.email}
+                onChange={handleContactChange}
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 border border-border rounded-none bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+                required
+              />
             </div>
-          </div>
+
+            {/* Phone */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                phone
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={contactForm.phone}
+                onChange={handleContactChange}
+                placeholder="(555) 123-4567"
+                className="w-full px-4 py-3 border border-border rounded-none bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+              />
+            </div>
+
+            {/* Subject */}
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                subject
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                value={contactForm.subject}
+                onChange={handleContactChange}
+                className="w-full px-4 py-3 border border-border rounded-none bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+              >
+                <option value="">Select a topic</option>
+                <option value="booking">Booking Question</option>
+                <option value="amenities">Amenities & Features</option>
+                <option value="availability">Availability</option>
+                <option value="pricing">Pricing</option>
+                <option value="policies">Policies & Rules</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            {/* Message */}
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                message <span className="text-destructive">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={contactForm.message}
+                onChange={handleContactChange}
+                placeholder="Tell us what you'd like to know..."
+                rows={6}
+                className="w-full px-4 py-3 border border-border rounded-none bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background resize-none"
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              disabled={submitInquiry.isPending}
+              className="w-full py-3 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {submitInquiry.isPending ? (
+                <span>sending...</span>
+              ) : (
+                <>
+                  <Send className="w-4 h-4 mr-2" />
+                  <span>send message</span>
+                </>
+              )}
+            </Button>
+          </form>
         </div>
       </section>
 
