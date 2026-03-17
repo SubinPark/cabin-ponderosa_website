@@ -119,7 +119,7 @@ export default function Home() {
             <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
             <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
             <a href="#booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</a>
-            <Link href="#contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</Link>
+            <a href="#contact" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">contact</a>
           </div>
         </div>
       </nav>
@@ -220,8 +220,6 @@ export default function Home() {
               { url: images.spaciousdeck, alt: "Spacious deck to lounge" },
               { url: images.mealsurrounded, alt: "Meal surrounded by trees" },
               { url: images.snow, alt: "Fresh snow in the mountain" },
-              { url: images.outdoorchairs, alt: "Outdoor chairs" },
-              { url: images.woods, alt: "Nestled in the woods" },
             ]}
           />
         </div>
