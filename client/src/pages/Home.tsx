@@ -43,6 +43,11 @@ export default function Home() {
     blanket2: "https://uc.orez.io/f/b48e74ee719044b8844b544856032df6",
     workstation2: "https://uc.orez.io/f/9c2b6e83ae7d4ece94d0714418aa0e7f",
     diningtable2: "https://uc.orez.io/f/81bfc82d4028423f80188c10176e1f64",
+    snow2: "https://uc.orez.io/f/1cd401b087674f10ae67bd9d2fc7198a",
+    bedroom2: "https://uc.orez.io/i/b7c26eb7c27848bdbfbb47010b88083d-LargeOriginal",
+    kitchen2: "https://uc.orez.io/f/9382362e1e3142bbb0d44bf1d2b9d676",
+    fireplace2: "https://uc.orez.io/f/1bc42df403f24f9cad304fffcad00f57",
+    neighborhood2: "https://uc.orez.io/f/2980cc05a86f4acb9fe78b0e047edff3",
     bbq: "https://uc.orez.io/i/a126bbc59c8f4fd7b22be722d7a335d1-LargeOriginal",
     tv: "https://uc.orez.io/i/6380a3fe1ce648cda0e7e17527296337-LargeOriginal",
     furnishings: "https://uc.orez.io/i/6f91f77d27b340289f328e06cb2b703b-LargeOriginal",
@@ -64,8 +69,6 @@ export default function Home() {
     loungesofa: "https://uc.orez.io/i/97f95bdc1d4644aaa20db1a55977358f-LargeOriginal",
     snow: "https://uc.orez.io/i/1cd401b087674f10ae67bd9d2fc7198a-LargeOriginal",
     outdoorchairs: "https://uc.orez.io/i/a26a33bc71744e0a9ab73fd4adea5736-LargeOriginal",
-    neighborhood: "https://uc.orez.io/i/2980cc05a86f4acb9fe78b0e047edff3-LargeOriginal",
-    fireplace: "https://uc.orez.io/i/1bc42df403f24f9cad304fffcad00f57-LargeOriginal",
     woods: "https://uc.orez.io/i/8a26550123b149388023fd70e6d28f5c-LargeOriginal",
     evcharger: "https://uc.orez.io/i/e51e2fad04b0475c948cc02fa16b8c71-LargeOriginal",
     bluelake: "https://uc.orez.io/i/5a869d72814c47f3b96ff02550d75a12-LargeOriginal",
@@ -240,6 +243,11 @@ export default function Home() {
               { url: images.blanket2, alt: "Cozy bedding" },
               { url: images.workstation2, alt: "Work area" },
               { url: images.diningtable2, alt: "Dining table" },
+              { url: images.snow2, alt: "Snow covered cabin" },
+              { url: images.bedroom2, alt: "Master bedroom" },
+              { url: images.kitchen2, alt: "Full kitchen" },
+              { url: images.fireplace2, alt: "Fireplace" },
+              { url: images.neighborhood2, alt: "Neighborhood view" },
             ]}
           />
         </div>
