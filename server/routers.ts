@@ -68,23 +68,6 @@ export const appRouter = router({
           throw new Error('Failed to send inquiry email');
         }
 
-        // Also send notification to owner in Manus dashboard
-        try {
-          await notifyOwner({
-            title: `New Inquiry from ${input.name}`,
-            content: `
-              Email: ${input.email}
-              Phone: ${input.phone || 'Not provided'}
-              Subject: ${input.subject || 'General Inquiry'}
-              
-              Message:
-              ${input.message}
-            `,
-          });
-        } catch (error) {
-          console.error('Failed to send owner notification:', error);
-        }
-
         return {
           success: true,
           message: 'Thank you for your inquiry. We will respond within 24 hours.',
