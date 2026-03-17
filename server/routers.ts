@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { getTestimonials, addTestimonial, deleteTestimonial } from "./db";
+import { Resend } from "resend";
 import type { TRPCError } from "@trpc/server";
 
 export const appRouter = router({
@@ -39,7 +40,35 @@ export const appRouter = router({
           throw new Error('Missing required fields');
         }
 
-        // Send email notification to owner
+        // Send email via Resend
+        try {
+          const apiKey = process.env.RESEND_API_KEY;
+          if (!apiKey) {
+            throw new Error('Resend API key not configured');
+          }
+
+          const resend = new Resend(apiKey);
+          
+          await resend.emails.send({
+            from: 'noreply@resend.dev',
+            to: 'thecabinponderosa@gmail.com',
+            subject: `New Inquiry from ${input.name}${input.subject ? ` - ${input.subject}` : ''}`,
+            html: `
+              <h2>New Cabin Inquiry</h2>
+              <p><strong>Name:</strong> ${input.name}</p>
+              <p><strong>Email:</strong> ${input.email}</p>
+              <p><strong>Phone:</strong> ${input.phone || 'Not provided'}</p>
+              ${input.subject ? `<p><strong>Subject:</strong> ${input.subject}</p>` : ''}
+              <p><strong>Message:</strong></p>
+              <p>${input.message.replace(/\n/g, '<br>')}</p>
+            `,
+          });
+        } catch (error) {
+          console.error('Failed to send email:', error);
+          throw new Error('Failed to send inquiry email');
+        }
+
+        // Also send notification to owner in Manus dashboard
         try {
           await notifyOwner({
             title: `New Inquiry from ${input.name}`,

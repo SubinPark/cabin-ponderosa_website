@@ -11,7 +11,7 @@ const faqItems: FAQItem[] = [
   {
     id: "cancellation",
     question: "What is your cancellation policy?",
-    answer: "Cancellations made 60 or more days before arrival receive a full refund. Cancellations within 60 days forfeit the 50% deposit. Cancellations within 30 days forfeit all payments. We recommend purchasing travel insurance for added protection."
+    answer: "Cancellations made 60 or more days before arrival receive a full refund. Cancellations within 60 days forfeit the 50% deposit. Cancellations within 30 days forfeit all payments.\n\nWe recommend purchasing travel insurance for added protection."
   },
   {
     id: "checkin",
