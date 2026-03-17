@@ -11,7 +11,9 @@ const faqItems: FAQItem[] = [
   {
     id: "cancellation",
     question: "What is your cancellation policy?",
-    answer: "Cancellations made 60 or more days before arrival receive a full refund. Cancellations within 60 days forfeit the 50% deposit. Cancellations within 30 days forfeit all payments.\n\nWe recommend purchasing travel insurance for added protection."
+    answer: `Cancellations made 60 or more days before arrival receive a full refund. Cancellations within 60 days forfeit the 50% deposit. Cancellations within 30 days forfeit all payments.
+
+We recommend purchasing travel insurance for added protection.`
   },
   {
     id: "checkin",
@@ -75,9 +77,9 @@ export function FAQAccordion() {
 
           {openId === item.id && (
             <div className="px-6 py-4 bg-secondary/5 border-t border-border">
-              <p className="text-sm text-muted-foreground font-light leading-relaxed">
+              <div className="text-sm text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">
                 {item.answer}
-              </p>
+              </div>
             </div>
           )}
         </div>
