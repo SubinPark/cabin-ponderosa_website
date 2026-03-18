@@ -195,8 +195,7 @@ export default function Home() {
                 <li>• High-speed WiFi and smart TV</li>
                 <li>• Fully equipped kitchen</li>
                 <li>• Washer & dryer</li>
-                <li>• Air conditioning</li>
-                <li>• Heating</li>
+                <li>• Air conditioning & Central Heating</li>
                 <li>• Wood-burning stove</li>
                 <li>• EV charger</li>
               </ul>
@@ -208,7 +207,7 @@ export default function Home() {
                 <li>• Outdoor fire pit</li>
                 <li>• BBQ grill</li>
                 <li>• Outdoor dining area</li>
-                <li>• Lounge seating & sun loungers</li>
+                <li>• Lounge seating</li>
               </ul>
             </div>
           </div>
@@ -299,22 +298,22 @@ export default function Home() {
                 <li className="flex items-start">
                   <span className="mr-3">•</span>
                   <div>
-                    <p className="font-medium text-foreground">Blue Lake Springs</p>
-                    <p className="text-sm">Beautiful alpine lake, 15 min drive</p>
+                    <p className="font-medium text-foreground">Exclusive Blue Lake Springs amenities</p>
+                    <p className="text-sm">Pool, private lakes, restaurant, playground, 4 min drive</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-3">•</span>
                   <div>
-                    <p className="font-medium text-foreground">Big Trees State Park</p>
-                    <p className="text-sm">Ancient sequoia groves, 20 min drive</p>
+                    <p className="font-medium text-foreground">Calaveras Big Trees State Park</p>
+                    <p className="text-sm">Ancient sequoia groves, 8 min drive</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-3">•</span>
                   <div>
-                    <p className="font-medium text-foreground">Calaveras Big Trees Trail</p>
-                    <p className="text-sm">Scenic hiking, 25 min drive</p>
+                    <p className="font-medium text-foreground">Lake Alpine</p>
+                    <p className="text-sm">Beautiful alpine lake, 35 min drive</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -323,7 +322,7 @@ export default function Home() {
                     <p className="font-medium text-foreground">Murphys Historic Town</p>
                     <p className="text-sm">Gold rush era town with wineries, 20 min drive</p>
                   </div>
-                </li>
+                </li>                
               </ul>
             </div>
 
@@ -349,7 +348,7 @@ export default function Home() {
                   <span className="mr-3">•</span>
                   <div>
                     <p className="font-medium text-foreground">Winter Sports</p>
-                    <p className="text-sm">Skiing & snowboarding nearby in winter</p>
+                    <p className="text-sm">Skiing & snowboarding at Bear Valley Ski Resort</p>
                   </div>
                 </li>
                 <li className="flex items-start">

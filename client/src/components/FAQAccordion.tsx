@@ -11,19 +11,23 @@ const faqItems: FAQItem[] = [
   {
     id: "cancellation",
     question: "What is your cancellation policy?",
-    answer: `Cancellations made 60 or more days before arrival receive a full refund. Cancellations within 60 days forfeit the 50% deposit. Cancellations within 30 days forfeit all payments.
+    answer: `Plans change—we understand. Here’s how refunds work:
 
-We recommend purchasing travel insurance for added protection.`
+• Cancel 15+ days before arrival → 100% refund
+• Cancel 8–14 days before arrival → 50% refund
+• Cancel within 7 days of arrival → No refund
+
+💡 Book with confidence: You can cancel within 24 hours of booking for a full refund, as long as your check-in date is at least 7 days away.`
   },
   {
     id: "checkin",
     question: "What are the check-in and check-out times?",
-    answer: "Standard check-in is at 4:00 PM and check-out is at 11:00 AM. Early check-in and late check-out may be available upon request at no additional charge, subject to availability. Please contact us to arrange."
+    answer: "Standard check-in is at 4:00 PM and check-out is at 11:00 AM. Early check-in and late check-out may be available upon request, subject to availability. Please contact us to arrange."
   },
   {
     id: "pets",
     question: "Are pets allowed?",
-    answer: "Unfortunately, we do not allow pets due to guest allergies. Service animals are welcome. If you have questions about specific circumstances, please contact us directly."
+    answer: "Unfortunately, we do not allow pets due to allergies. If you have questions about specific circumstances, please contact us directly."
   },
   {
     id: "winter",
@@ -33,12 +37,7 @@ We recommend purchasing travel insurance for added protection.`
   {
     id: "guests",
     question: "How many guests can stay?",
-    answer: "The cabin comfortably sleeps 4-8 guests depending on configuration. Only confirmed guests are allowed on the property. Additional guests beyond the booking must be approved in advance."
-  },
-  {
-    id: "amenities",
-    question: "What amenities are included?",
-    answer: "Amenities include a fully equipped kitchen, hot tub, wood-burning fireplace, WiFi, smart TV, premium linens, towels, and access to the deck and fire pit. All utilities are included in your stay."
+    answer: "The cabin comfortably sleeps 6-8 guests depending on configuration. Only confirmed guests are allowed on the property. Additional guests beyond the booking must be approved in advance."
   },
   {
     id: "parking",

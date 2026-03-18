@@ -13,27 +13,27 @@ interface Testimonial {
 const defaultTestimonials: Testimonial[] = [
   {
     id: 1,
-    guestName: "Sarah & Michael",
+    guestName: "Sandy",
     rating: 5,
-    review: "Absolutely stunning cabin. The views are breathtaking, and everything was immaculate. We felt completely disconnected from the world in the best way possible. Can't wait to return."
+    review: "My family and I had the most incredible time at Susan’s Airbnb and highly recommend it to anyone considering a stay! The house was spotless and perfectly located — surrounded by beautiful trees, near big tree park, and just minutes from downtown Arnold. The indoor and outdoor fireplaces were such a cozy touch, and the kids loved making s’mores. Having an EV charger was a huge plus for us, and the peaceful, quiet setting made it the perfect getaway. The hosts were wonderful — very communicative and checked in to ensure we had everything we needed throughout our stay. I’m so appreciative and can’t wait to return. Thank you so much for hosting us!"
   },
   {
     id: 2,
-    guestName: "Jennifer",
+    guestName: "Elena",
     rating: 5,
-    review: "Perfect mountain getaway. The A-frame design with those massive windows is incredible. The fire pit was the highlight of our evenings. Highly recommend for anyone seeking peace and nature."
+    review: "The location was perfect, the home was cozy and clean. Susan is communicative, kind and thoughtful. We recommend this listing to anyone visiting and would like to come back."
   },
   {
     id: 3,
-    guestName: "David & Lisa",
+    guestName: "Esra",
     rating: 5,
-    review: "Exceeded all expectations. The cabin is beautifully maintained, and the location is ideal for exploring the Sierra Nevada. We appreciated the thoughtful touches and excellent communication."
+    review: "Lovely home, lovely location. Susan and her husband were super helpful and communicative. We really enjoyed our stay. It is perfect if you’re looking for a peaceful place🤗"
   },
   {
     id: 4,
-    guestName: "Emma",
+    guestName: "Shelby",
     rating: 5,
-    review: "A true sanctuary in the forest. The combination of modern comfort and natural beauty is unmatched. The hot showers after hiking were pure bliss. Definitely coming back."
+    review: "We absolutely loved our stay at Cabin Ponderosa! Susan was incredibly responsive and helpful from the start. The house was exactly as described and just so cozy! We loved having our morning coffee on the deck amongst the trees. The outdoor fire pit was such a treat! Susan had everything labeled with instructions throughout the home, which we thought was so incredibly helpful. The location was prime, only a short drive to downtown Arnold. We will certainly be back again. Thanks Susan, we loved our stay!"
   },
 ];
 
