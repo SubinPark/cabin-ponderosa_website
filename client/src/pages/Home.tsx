@@ -149,6 +149,7 @@ export default function Home() {
           <h1 className="text-2xl font-light tracking-wide">cabin ponderosa</h1>
           <div className="flex items-center gap-8">
             <a href="#about" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">about</a>
+            <a href="#gallery" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">gallery</a>
             <a href="#testimonials" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">reviews</a>
             <a href="#location" className="text-sm font-light hover:text-muted-foreground transition-colors hidden md:inline">location</a>
             <a href="#booking" className="text-sm font-light hover:text-muted-foreground transition-colors">book</a>
@@ -235,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* Photo Gallery Carousel */}
-      <section className="section-spacing bg-secondary/5">
+      <section id="gallery" className="section-spacing bg-secondary/5">
         <div className="container max-w-4xl mx-auto">
           <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
             explore the cabin
@@ -244,26 +245,6 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* Booking Widget Section */}
-      <section id="booking" className="section-spacing bg-white">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
-            book your stay
-          </h3>
-          <BookingWidget />
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="section-spacing bg-secondary/5">
-        <div className="container max-w-4xl mx-auto">
-          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
-            frequently asked
-          </h3>
-          <FAQAccordion />
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section id="testimonials" className="section-spacing bg-white">
@@ -353,6 +334,26 @@ export default function Home() {
               </ul>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="section-spacing bg-white">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            frequently asked
+          </h3>
+          <FAQAccordion />
+        </div>
+      </section>
+
+      {/* Booking Widget Section */}
+      <section id="booking" className="section-spacing bg-secondary/5">
+        <div className="container max-w-4xl mx-auto">
+          <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
+            book your stay
+          </h3>
+          <BookingWidget />
         </div>
       </section>
 
