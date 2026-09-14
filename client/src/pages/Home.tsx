@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 /**
  * Cabin Ponderosa Website
- * 
+ *
  * Design Philosophy: Minimalist Artistic
  * - Large, full-width photography as primary storytelling element
  * - Generous whitespace and breathing room
@@ -20,6 +20,21 @@ import { toast } from "sonner";
  * - Image-first layout inspired by hinter.com
  * - Focus on the cabin's natural beauty and serene atmosphere
  */
+
+// "explore the cabin" carousel photos: auto-loaded from client/src/assets/gallery/.
+// To change photos, just add/remove/rename files in that folder (order follows filename,
+// e.g. "01-deck.jpg" before "02-kitchen.jpg"; the alt text is generated from the filename).
+const galleryModules = import.meta.glob<{ default: string }>(
+  "../assets/gallery/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+const galleryPhotos = Object.keys(galleryModules)
+  .sort()
+  .map((path) => {
+    const filename = path.split("/").pop()!.replace(/\.[^.]+$/, "");
+    const alt = filename.replace(/^\d+-/, "").replace(/-/g, " ");
+    return { url: galleryModules[path].default, alt };
+  });
 
 export default function Home() {
   const images = {
@@ -220,28 +235,7 @@ export default function Home() {
           <h3 className="text-4xl md:text-5xl font-light mb-12 leading-tight">
             explore the cabin
           </h3>
-          <PhotoCarousel
-            photos={[
-              { url: images.bathroom2, alt: "Bathroom with shower" },
-              { url: images.living2, alt: "Living room with forest views" },
-              { url: images.outdoor2, alt: "Outdoor seating area" },
-              { url: images.deck2, alt: "Deck with forest view" },        
-              { url: images.bedroom2, alt: "Master bedroom" },                    
-              { url: images.snowy, alt: "Snowy day at the cabin" },
-              { url: images.kingbed, alt: "King memory mattress bedroom" },
-              { url: images.nightstand, alt: "Cute nightstand" },
-              { url: images.loft, alt: "Spacious loft area" },
-              { url: images.spaciousdeck, alt: "Spacious deck to lounge" },
-              { url: images.mealsurrounded, alt: "Meal surrounded by trees" },
-              { url: images.tv2, alt: "Entertainment area" },
-              { url: images.dishes2, alt: "Kitchen cookware" },
-              { url: images.blanket2, alt: "Cozy bedding" },
-              { url: images.snow2, alt: "Snow covered cabin" },
-              { url: images.kitchen2, alt: "Full kitchen" },
-              { url: images.fireplace2, alt: "Fireplace" },
-              { url: images.neighborhood2, alt: "Neighborhood view" },
-            ]}
-          />
+          <PhotoCarousel photos={galleryPhotos} />
         </div>
       </section>
 
