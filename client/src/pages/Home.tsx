@@ -3,7 +3,7 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
 import { BookingWidget } from "@/components/BookingWidget";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Send, Calendar, MessageCircle } from "lucide-react";
+import { ChevronDown, Send, Calendar, MessageCircle, Instagram, Facebook } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
@@ -475,7 +475,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-border py-12">
         <div className="container max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
               <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">location</h4>
               <p className="text-muted-foreground font-light">
@@ -487,6 +487,17 @@ export default function Home() {
               <a href="https://airbnb.com/h/cabinponderosa" target="_blank" rel="noopener noreferrer" className="text-muted-foreground font-light hover:text-foreground transition-colors">
                 View on Airbnb
               </a>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium mb-4 uppercase tracking-wider">follow along</h4>
+              <div className="flex gap-4">
+                <a href="https://instagram.com/cabinponderosa" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://www.facebook.com/cabinponderosaarold" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground font-light">
