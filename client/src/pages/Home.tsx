@@ -22,19 +22,24 @@ import { toast } from "sonner";
  */
 
 // "explore the cabin" carousel photos: auto-loaded from client/src/assets/gallery/.
-// To change photos, just add/remove/rename files in that folder (order follows filename,
-// e.g. "01-deck.jpg" before "02-kitchen.jpg"; the alt text is generated from the filename).
+// To change photos, just add/remove/rename files in that folder. Order follows the
+// leading number in the filename (e.g. "010-deck.jpg" before "020-kitchen.jpg") —
+// any number works, so leave gaps (10, 20, 30...) to make it easy to insert a photo
+// later without renaming the others. The alt text is generated from the filename.
 const galleryModules = import.meta.glob<{ default: string }>(
   "../assets/gallery/*.{jpg,jpeg,png,webp}",
   { eager: true }
 );
 const galleryPhotos = Object.keys(galleryModules)
-  .sort()
   .map((path) => {
     const filename = path.split("/").pop()!.replace(/\.[^.]+$/, "");
-    const alt = filename.replace(/^\d+-/, "").replace(/-/g, " ");
-    return { url: galleryModules[path].default, alt };
-  });
+    const match = filename.match(/^(\d+)-?/);
+    const order = match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
+    const alt = filename.replace(/^\d+-/, "").replace(/[-_]/g, " ");
+    return { url: galleryModules[path].default, alt, order, filename };
+  })
+  .sort((a, b) => a.order - b.order || a.filename.localeCompare(b.filename))
+  .map(({ url, alt }) => ({ url, alt }));
 
 export default function Home() {
   const images = {
